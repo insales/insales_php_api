@@ -1,0 +1,32 @@
+{
+  "name": "insales/api-client-php",
+  "description": "PHP client for InSales API",
+  "type": "library",
+  "keywords": ["API", "InSales", "REST"],
+  "homepage": "http://insales.ru/",
+  "authors": [
+    {
+      "name": "Mazepin Vasily",
+      "email": "vasily@liven-mv.ru"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0",
+    "ext-curl": "*"
+
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.5"
+  },
+  "support": {
+    "email": "support@insales.ru"
+  },
+  "autoload": {
+    "psr-0": { "Liven\\": "src/" }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "3.0.x-dev"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<?php
+
+namespace Liven\InSales\Tests\ApiClient\CRUD;
+
+use Liven\InSales\API\ApiResponse;
+use Liven\InSales\TestCase;
+
+class StockCurrencyTest extends TestCase
+{
+    public function testTest()
+    {
+        $client = $this->getApiClient(true);
+        /** @var ApiResponse $response */
+        $response = $client->createStockCurrency(
+            [
+                'stock_currency' => [
+                    'code' => 'LVL',
+                ]
+            ]
+        );
+        $methods = [200, 201, 404, 422];
+        $this->assertTrue(in_array($response->getHttpCode(), $methods));
+        if ($response->getHttpCode() == 201){
+            $id = $response->getData()['id'];
+            $response = $client->updateStockCurrency($id, []);
+            $this->assertTrue(in_array($response->getHttpCode(), $methods));
+            $response = $client->removeStockCurrency($id);
+            $this->assertTrue(in_array($response->getHttpCode(), $methods));
+        }
+    }
+}
