@@ -1,4 +1,7 @@
 #API-клиент для работы с сервисом InSales
+Установка:
+
+`composer require insales/api-client-php dev-master`
 
 Пример использования:
 
