@@ -25,7 +25,7 @@
         verbose="false">
         <testsuites>
                 <testsuite name="InSales">
-                        <directory>src/tests/Liven/InSales/Tests</directory>
+                        <directory>src/tests/InSales/Tests</directory>
                 </testsuite>
         </testsuites>
         <php>

@@ -22,7 +22,7 @@
     "email": "support@insales.ru"
   },
   "autoload": {
-    "psr-0": { "Liven\\": "src/" }
+    "psr-4": { "": "src/" }
   },
   "extra": {
     "branch-alias": {

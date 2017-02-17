@@ -8,7 +8,7 @@
 ```
 require_once 'vendor/autoload.php';
 
-$client = new \Liven\InSales\API\ApiClient('identity', 'password', 'host_name');
+$client = new \InSales\API\ApiClient('identity', 'password', 'host_name');
 
 $client->createClient(
 [
