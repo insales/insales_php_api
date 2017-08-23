@@ -41,6 +41,7 @@ class ApiClient
     const API_URL_CLIENT_GROUP = '/admin/client_groups';
     const API_URL_ORDERS = '/admin/orders';
     const API_URL_PRODUCTS = '/admin/products';
+    const API_URL_PRODUCTS_COUNT = '/admin/products/count';
     const API_URL_CUSTOM_STATUSES = '/admin/custom_statuses';
     const API_URL_DELIVERY_VARIANTS = '/admin/delivery_variants';
     const API_URL_PAYMENT_GATEWAYS = '/admin/payment_gateways';

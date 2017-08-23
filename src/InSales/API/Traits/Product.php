@@ -71,4 +71,15 @@ trait Product {
             $data
         );
     }
+
+    /**
+     * Получение количества товаров
+     * @return \InSales\API\ApiResponse
+     */
+    public function getProductsCount() {
+        return $this->client->executeGetRequest(
+            $this->generateUrl(self::API_URL_PRODUCTS_COUNT),
+            null
+        );
+    }
 }
