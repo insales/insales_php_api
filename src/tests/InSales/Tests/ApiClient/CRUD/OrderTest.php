@@ -4,6 +4,7 @@ namespace InSales\Tests\ApiClient\CRUD;
 
 use InSales\API\ApiClient;
 use InSales\API\ApiResponse;
+use InSales\Http\Client;
 use InSales\TestCase;
 
 class OrderTest extends TestCase
@@ -12,6 +13,8 @@ class OrderTest extends TestCase
     private $variantId;
     private $deliveryId;
     private $paymentId;
+    private $paymentShopId;
+    private $paymentPassword;
 
     public function testTest()
     {
@@ -46,6 +49,12 @@ class OrderTest extends TestCase
         $methods = [200, 201];
         $this->assertTrue(in_array($response->getHttpCode(), $methods));
         $id = $response->getData()['id'];
+        $key = $response->getData()['key'];
+        $this->createTransaction($key);
+        $response = $client->getOrderById($id);
+        $transactionId = $response->getData()['client_transaction_id'];
+        $this->notify($client, 0, $response->getData()['total_price'], $key, $transactionId);
+        $this->notify($client, 1, $response->getData()['total_price'], $key, $transactionId);
         $response = $client->updateOrder($id, []);
         $this->assertTrue(in_array($response->getHttpCode(), $methods));
         $response = $client->removeOrder($id);
@@ -92,18 +101,60 @@ class OrderTest extends TestCase
 
     private function createPayment(ApiClient $client)
     {
+        $this->paymentShopId = uniqid();
         $apiResponse = $client->createPaymentGateway([
             'payment_gateway' => [
                 'title' => uniqid(),
-                'type' => 'PaymentGateway::Cod',
-                'price' => 1
+                'type' => 'PaymentGateway::External',
+                'url' => 'http://example.com',
+                'price' => 1,
+                'shop_id' => $this->paymentShopId
 
             ]
         ]);
         $paymentId = $apiResponse->getData()['id'];
         $this->assertNotNull($paymentId);
+        $this->paymentPassword = $apiResponse->getData()['password'];
         $this->paymentId = $paymentId;
         return $paymentId;
+    }
+
+    private function createTransaction(string $key)
+    {
+        $methods = [200, 201];
+        $httpClient = new Client($_SERVER['identity'], $_SERVER['password'], $_SERVER['host_name']);
+        $response = $httpClient->request(
+            Client::METHOD_GET,
+            $_SERVER['host_name']."/payments/external/{$this->paymentId}/create",
+            http_build_query(['key' => $key])
+        );
+        $this->assertTrue(in_array($response->getHttpCode(), $methods));
+    }
+
+    private function notify(ApiClient $client, $isPaid, $amount, $key, $transactionId)
+    {
+        $signature = md5(join(';', [
+            $this->paymentShopId,
+            $amount,
+            $transactionId,
+            $key,
+            $isPaid,
+            $this->paymentPassword
+        ]));
+
+        $data = [
+            'paid'           => $isPaid,
+            'amount'         => $amount,
+            'transaction_id' => $transactionId,
+            'key'            => $key,
+            'shop_id'        => $this->paymentShopId,
+            'signature'      => $signature
+        ];
+
+        $methods = [200, 201];
+        $response = $client->paymentNotify($data);
+        $this->assertTrue(in_array($response->getHttpCode(), $methods));
+        $this->assertEquals('ok', $response->getData()['status']);
     }
 
     private function clear(ApiClient $client)

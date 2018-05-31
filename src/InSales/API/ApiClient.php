@@ -3,7 +3,7 @@
 namespace InSales\API;
 
 use InSales\API\Traits\{
-    Account, Article, ApplicationCharge, ApplicationWidget, Blog, Category, Client, ClientGroup, Collect, Collection, CollectionFieldValue, CollectionFilter, CustomStatus, DeliveryVariant, DiscountCode, Domain, Field, File, Image, InvitedAccount, JsTags, OptionName, OptionValue, Order, Product, ProductField, ProductFieldValue, Property, PaymentGateway, PropertyCharacteristic, Review, Similar, StockCurrency, Supplementary, Testing, Variant, VariantField, VariantFieldValue, WebHook
+    Account, Article, ApplicationCharge, ApplicationWidget, Blog, Category, Client, ClientGroup, Collect, Collection, CollectionFieldValue, CollectionFilter, CustomStatus, DeliveryVariant, DiscountCode, Domain, Field, File, Image, InvitedAccount, JsTags, OptionName, OptionValue, Order, Product, ProductField, ProductFieldValue, Property, PaymentGateway, PropertyCharacteristic, Review, Similar, StockCurrency, Supplementary, Testing, Variant, VariantField, VariantFieldValue, WebHook, PaymentNotify
 };
 use InSales\Http\Client as HttpClient;
 
@@ -27,7 +27,8 @@ class ApiClient
         Similar, StockCurrency, Supplementary,
         Variant, VariantField, VariantFieldValue,
         WebHook,
-        Testing;
+        Testing,
+        PaymentNotify;
 
     const API_URL_ACCOUNT = '/admin/account';
     const API_URL_APPLICATION_CHARGES = '/admin/application_charges';
@@ -68,8 +69,9 @@ class ApiClient
     const API_URL_VARIANT_FIELD = '/admin/variant_fields';
     const API_URL_VARIANT_FIELD_VALUE = '/admin/products/{slug}/variant_field_values';
     const API_URL_WEBHOOK = '/admin/webhooks';
+    const PAYMENT_URL_NOTIFY = '/payments/external/server';
 
-    /** @var Client */
+    /** @var HttpClient */
     private $client;
 
     /**
