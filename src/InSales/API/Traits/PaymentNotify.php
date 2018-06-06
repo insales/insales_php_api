@@ -25,7 +25,7 @@ trait PaymentNotify
             $client::METHOD_POST,
             $client->getHostName() . self::PAYMENT_URL_NOTIFY,
             http_build_query($data),
-            ['cContent-Type: application/x-www-form-urlencoded']
+            ['Content-Type: application/x-www-form-urlencoded']
         );
         return $response;
     }
