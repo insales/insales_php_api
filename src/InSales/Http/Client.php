@@ -18,6 +18,7 @@ class Client
     const METHOD_DELETE = 'DELETE';
 
     private $baseUrl;
+    private $hostName;
 
     /**
      * Инициализация Клиента
@@ -26,6 +27,7 @@ class Client
      * @param string $hostName Адрес магазина
      */
     public function __construct(string $identity, string $password, string $hostName) {
+        $this->hostName = 'http://' . $hostName;
         $this->baseUrl = 'http://' . $identity . ':'. $password . '@' . $hostName;
     }
 
@@ -38,13 +40,24 @@ class Client
     }
 
     /**
+     * @return string
+     */
+    public function getHostName() : string
+    {
+        return $this->hostName;
+    }
+
+    /**
      * Выполнение базового запроса
+     *
      * @param string $method Метод
      * @param string $url
-     * @param array $params
+     * @param string $params
+     * @param array $headers
+     *
      * @return ApiResponse
      */
-    public function request(string $method, string $url, array $params = []) : ApiResponse
+    public function request(string $method, string $url, string $params = '', array $headers = []) : ApiResponse
     {
         $responseHeaders = [];
         $ch = curl_init();
@@ -60,21 +73,22 @@ class Client
             || self::METHOD_DELETE === $method
             || self::METHOD_GET === $method
         ) {
-            $headers = [];
-            $headers[] = 'Content-Type: application/json';
-            $headers[] = 'Cache-Control: no-cache';
+            if (empty($headers)) {
+                $headers[] = 'Content-Type: application/json';
+                $headers[] = 'Cache-Control: no-cache';
+            }
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
         if (self::METHOD_GET === $method && !empty($params)) {
-            $url .= '?' . http_build_query($params);
+            $url .= '?' . $params;
         }
         if (self::METHOD_POST === $method) {
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
         }
         if (self::METHOD_PUT === $method) {
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
         }
         if (self::METHOD_DELETE === $method) {
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -126,7 +140,7 @@ class Client
         $response = $this->request(
             self::METHOD_POST,
             $url,
-            $data
+            json_encode($data)
         );
         if ($response->getHttpCode() != 201) {
             $errorMessage = $response->getData();
@@ -167,7 +181,10 @@ class Client
     public function executeListRequest(string $url, array $params = []) : ApiResponse
     {
         $response = $this->request(
-            self::METHOD_GET, $url, $params);
+            self::METHOD_GET,
+            $url,
+            http_build_query($params)
+        );
 
         if ($response->getHttpCode() != 200) {
             $errorMessage = $response->getData();
@@ -191,7 +208,7 @@ class Client
         $response = $this->request(
             self::METHOD_GET,
             $url,
-            $params
+            http_build_query($params)
         );
         if(!$response->getData()) {
             $response->setHttpCode(404);
@@ -212,7 +229,7 @@ class Client
         $response = $this->request(
             self::METHOD_PUT,
             $url,
-            $data
+            json_encode($data)
         );
         if ($response->getHttpCode() != 200) {
             $errorMessage = $response->getData();
