@@ -26,9 +26,13 @@ class Client
      * @param string $password Пароль
      * @param string $hostName Адрес магазина
      */
-    public function __construct(string $identity, string $password, string $hostName) {
-        $this->hostName = 'http://' . $hostName;
-        $this->baseUrl = 'http://' . $identity . ':'. $password . '@' . $hostName;
+    public function __construct(string $identity, string $password, string $hostName)
+    {
+        $scheme = parse_url($hostName, PHP_URL_SCHEME) ?: 'http';
+        $hostName = str_ireplace($scheme . '://', '', $hostName);
+
+        $this->hostName = $scheme . '://' . $hostName;
+        $this->baseUrl = $scheme . '://' . $identity . ':' . $password . '@' . $hostName;
     }
 
     /**
