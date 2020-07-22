@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
         backupGlobals="true"
         backupStaticAttributes="false"
-        bootstrap="src/tests/bootstrap.php"
+        bootstrap="tests/bootstrap.php"
         cacheTokens="false"
         colors="false"
         convertErrorsToExceptions="true"
@@ -23,23 +23,23 @@
         timeoutForMediuTests="10"
         timeoutForLargeTests="60"
         verbose="false">
-        <testsuites>
-                <testsuite name="InSales">
-                        <directory>src/tests/InSales/Tests</directory>
-                </testsuite>
-        </testsuites>
-        <php>
-                <server name="identity" value="foo" />
-                <server name="password" value="bar" />
-                <server name="host_name" value="zoo" />
-        </php>
-        <filter>
-                <whitelist>
-                        <directory>src</directory>
-                        <exclude>
-                                <directory>vendor</directory>
-                                <directory>src/tests</directory>
-                        </exclude>
-                </whitelist>
-        </filter>
+    <testsuites>
+        <testsuite name="InSales">
+            <directory>tests/InSales/Tests</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <server name="identity" value="foo"/>
+        <server name="password" value="bar"/>
+        <server name="host_name" value="zoo"/>
+    </php>
+    <filter>
+        <whitelist>
+            <directory>src</directory>
+            <exclude>
+                <directory>vendor</directory>
+                <directory>tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>
