@@ -2,9 +2,47 @@
 
 namespace InSales\API;
 
-use InSales\API\Traits\{
-    Account, Article, ApplicationCharge, ApplicationWidget, Blog, Category, Client, ClientGroup, Collect, Collection, CollectionFieldValue, CollectionFilter, CustomStatus, DeliveryVariant, DiscountCode, Domain, Field, File, Image, InvitedAccount, JsTags, OptionName, OptionValue, Order, Product, ProductField, ProductFieldValue, Property, PaymentGateway, PropertyCharacteristic, Review, Similar, StockCurrency, Supplementary, Testing, Variant, VariantField, VariantFieldValue, WebHook, PaymentNotify
-};
+use InSales\API\Traits\{Account,
+    Article,
+    ApplicationCharge,
+    ApplicationWidget,
+    Blog,
+    Category,
+    Client,
+    ClientGroup,
+    Collect,
+    Collection,
+    CollectionFieldValue,
+    CollectionFilter,
+    CustomStatus,
+    DeliveryVariant,
+    DiscountCode,
+    Domain,
+    ExternalDiscount,
+    Field,
+    File,
+    Image,
+    InvitedAccount,
+    JsTags,
+    OptionName,
+    OptionValue,
+    Order,
+    Product,
+    ProductField,
+    ProductFieldValue,
+    Property,
+    PaymentGateway,
+    PropertyCharacteristic,
+    Review,
+    Similar,
+    StockCurrency,
+    Supplementary,
+    Testing,
+    Variant,
+    VariantField,
+    VariantFieldValue,
+    WebHook,
+    PaymentNotify};
 use InSales\Http\Client as HttpClient;
 
 /**
@@ -17,7 +55,7 @@ class ApiClient
         Account, Article, Order, ApplicationCharge, ApplicationWidget,
         Blog,
         Category, Client, ClientGroup, Collection, Collect, CollectionFieldValue, CollectionFilter, CustomStatus,
-        DeliveryVariant, DiscountCode, Domain,
+        DeliveryVariant, DiscountCode, ExternalDiscount, Domain,
         Field, File,
         Image, InvitedAccount,
         JsTags,
@@ -51,6 +89,7 @@ class ApiClient
     const API_URL_COLLECTION_FIELD_VALUES = '/admin/collections/{slug}/collection_field_values';
     const API_URL_COLLECTION_FILTERS = '/admin/collection_filters';
     const API_URL_DISCOUNT_CODES = '/admin/discount_codes';
+    const API_URL_EXTERNAL_DISCOUNT = '/admin/external_discounts';
     const API_URL_DOMAINS = '/admin/domains';
     const API_URL_FIELDS = '/admin/fields';
     const API_URL_FILES = '/admin/files';
