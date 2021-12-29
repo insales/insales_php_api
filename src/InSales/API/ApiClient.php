@@ -4,6 +4,7 @@ namespace InSales\API;
 
 use InSales\API\Traits\{Account,
     Article,
+    ApplicationAction,
     ApplicationCharge,
     ApplicationWidget,
     Blog,
@@ -52,7 +53,7 @@ use InSales\Http\Client as HttpClient;
 class ApiClient
 {
     use
-        Account, Article, Order, ApplicationCharge, ApplicationWidget,
+        Account, Article, Order, ApplicationAction, ApplicationCharge, ApplicationWidget,
         Blog,
         Category, Client, ClientGroup, Collection, Collect, CollectionFieldValue, CollectionFilter, CustomStatus,
         DeliveryVariant, DiscountCode, ExternalDiscount, Domain,
@@ -69,6 +70,7 @@ class ApiClient
         PaymentNotify;
 
     const API_URL_ACCOUNT = '/admin/account';
+    const API_URL_APPLICATION_ACTION = '/admin/application_actions';
     const API_URL_APPLICATION_CHARGES = '/admin/application_charges';
     const API_URL_APPLICATION_WIDGET = '/admin/application_widgets';
     const API_URL_ARTICLE = '/admin/blogs/{slug}/articles';
