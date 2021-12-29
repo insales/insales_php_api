@@ -15,7 +15,8 @@ class ApplicationChargeTest extends TestCase
             [
                 'application_charge' => [
                     'name' => uniqid(),
-                    'price' => 1
+                    'price' => 1,
+                    'test' => true
                 ]
             ]
         );
