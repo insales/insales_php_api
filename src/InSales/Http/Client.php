@@ -16,6 +16,7 @@ class Client
     const METHOD_GET = 'GET';
     const METHOD_PUT = 'PUT';
     const METHOD_DELETE = 'DELETE';
+    const METHOD_PATCH = 'PATCH';
 
     private $baseUrl;
     private $hostName;
@@ -232,6 +233,29 @@ class Client
     {
         $response = $this->request(
             self::METHOD_PUT,
+            $url,
+            json_encode($data)
+        );
+        if ($response->getHttpCode() != 200) {
+            $errorMessage = $response->getData();
+            if (is_array($errorMessage)){
+                $errorMessage = current($errorMessage);
+                $response->setMessage($errorMessage);
+            }
+        }
+        return $response;
+    }
+
+    /**
+     * Выполнение запроса на обновление сущности методом PATCH
+     * @param string $url
+     * @param array $data
+     * @return ApiResponse
+     */
+    public function executePatchRequest(string $url, array $data) : ApiResponse
+    {
+        $response = $this->request(
+            self::METHOD_PATCH,
             $url,
             json_encode($data)
         );
