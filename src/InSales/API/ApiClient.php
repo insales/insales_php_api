@@ -34,6 +34,7 @@ use InSales\API\Traits\{Account,
     Property,
     PaymentGateway,
     PropertyCharacteristic,
+    RecurringApplicationCharge,
     Review,
     Similar,
     StockCurrency,
@@ -62,7 +63,7 @@ class ApiClient
         JsTags,
         OptionName, OptionValue,
         Product, Property, PaymentGateway, PropertyCharacteristic, ProductField, ProductFieldValue,
-        Review,
+        RecurringApplicationCharge, Review,
         Similar, StockCurrency, Supplementary,
         Variant, VariantField, VariantFieldValue,
         WebHook,
@@ -102,6 +103,8 @@ class ApiClient
     const API_URL_OPTION_VALUES = '/admin/option_names/{slug}/option_values';
     const API_URL_PRODUCT_FIELD = '/admin/product_fields';
     const API_URL_PRODUCT_FIELD_VALUE = '/admin/products/{slug}/product_field_values';
+    const API_URL_RECURRING_APPLICATION_CHARGE = '/admin/recurring_application_charge';
+    const API_URL_RECURRING_APPLICATION_CHARGE_ADD_FREE_DAYS = '/admin/recurring_application_charge/add_free_days';
     const API_URL_REVIEW = '/admin/reviews';
     const API_URL_SIMILAR = '/admin/products/{slug}/similars';
     const API_URL_STOCK_CURRENCY = '/admin/stock_currencies';
