@@ -22,30 +22,38 @@ class OrderTest extends TestCase
         $variantId = $this->createVariant($client);
         $deliveryVariantId = $this->createDelivery($client);
         $paymentId = $this->createPayment($client);
-        /** @var ApiResponse $response */
-        $response = $client->createOrder(
-            [
-                'order' => [
-                    'order_lines_attributes' => [
-                        [
-                            'variant_id' => $variantId,
-                            "quantity" => 2
-                        ]
-                    ],
-                    'client' => [
-                        'name' => 'Vasya',
-                        'email' => 'vasya@example.com',
-                        "phone" => "79111112233"
+        $data = [
+            'order' => [
+                'order_lines_attributes' => [
+                    [
+                        'variant_id' => $variantId,
+                        "quantity" => 2
+                    ]
+                ],
+                'client' => [
+                    'name' => 'Vasya',
+                    'email' => 'vasya@example.com',
+                    "phone" => "79111112233"
 
-                    ],
-                    'shipping_address_attributes' => [
-                        "address" => "Moscow, Krasnaya Presna 24"
-                    ],
-                    'delivery_variant_id' => $deliveryVariantId,
-                    'payment_gateway_id' => $paymentId,
+                ],
+                'shipping_address_attributes' => [
+                    "address" => "Moscow, Krasnaya Presna 24",
+                    'full_locality_name' => 'Москва',
+                ],
+                'delivery_variant_id' => $deliveryVariantId,
+                'payment_gateway_id' => $paymentId,
+                'discounts_attributes' => [
+                    [
+                        'discount' => 1,
+                        'type_id' => 2,
+                        'description' => uniqid(),
+                    ]
                 ]
             ]
-        );
+        ];
+        /** @var ApiResponse $response */
+        $response = $client->createOrder($data);
+
         $methods = [200, 201];
         $this->assertTrue(in_array($response->getHttpCode(), $methods));
         $id = $response->getData()['id'];
