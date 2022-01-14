@@ -30,6 +30,7 @@ class BlogTest extends TestCase
                     'title' => uniqid(),
                     'content' => uniqid(),
                     'author' => uniqid(),
+                    'published_at' => date('Y-m-d'),
                 ]
             ]
         );
