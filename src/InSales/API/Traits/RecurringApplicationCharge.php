@@ -78,7 +78,7 @@ trait RecurringApplicationCharge
     public function addFreeDays(array $data) : ApiResponse
     {
         return $this->client->executePatchRequest(
-            $this->generateUrl(self::API_URL_RECURRING_APPLICATION_CHARGE_ADD_FREE_DAYS),
+            $this->generateUrl(self::API_URL_RECURRING_APPLICATION_CHARGE, 'add_free_days'),
             $data
         );
     }
