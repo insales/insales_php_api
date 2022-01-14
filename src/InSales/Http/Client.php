@@ -77,6 +77,7 @@ class Client
             || self::METHOD_PUT === $method
             || self::METHOD_DELETE === $method
             || self::METHOD_GET === $method
+            || self::METHOD_PATCH === $method
         ) {
             if (empty($headers)) {
                 $headers[] = 'Content-Type: application/json';
@@ -97,6 +98,10 @@ class Client
         }
         if (self::METHOD_DELETE === $method) {
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        }
+        if (self::METHOD_PATCH === $method) {
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
         }
         curl_setopt(
             $ch,
