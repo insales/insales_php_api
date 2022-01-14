@@ -24,28 +24,30 @@ class RecurringApplicationChargeTest extends TestCase
         $methods = [200, 201];
         $this->assertTrue(in_array($response->getHttpCode(), $methods));
 
-        $response = $client->updateRecurringCharge(
-            [
-                'recurring_application_charge' => [
-                    'monthly' => 2
+        try {
+            $response = $client->updateRecurringCharge(
+                [
+                    'recurring_application_charge' => [
+                        'monthly' => 2
+                    ]
                 ]
-            ]
-        );
-        $this->assertTrue(in_array($response->getHttpCode(), $methods));
+            );
+            $this->assertTrue(in_array($response->getHttpCode(), $methods));
 
-        $response = $client->getRecurringCharge();
-        $this->assertTrue(in_array($response->getHttpCode(), $methods));
+            $response = $client->getRecurringCharge();
+            $this->assertTrue(in_array($response->getHttpCode(), $methods));
 
-        $response = $client->addFreeDays(
-            [
-                'recurring_application_charge' => [
-                    'days_count' => 21
+            $response = $client->addFreeDays(
+                [
+                    'recurring_application_charge' => [
+                        'days_count' => 21
+                    ]
                 ]
-            ]
-        );
-        $this->assertTrue(in_array($response->getHttpCode(), $methods));
-
-        $response = $client->destroyRecurringCharge();
-        $this->assertTrue(in_array($response->getHttpCode(), $methods));
+            );
+            $this->assertTrue(in_array($response->getHttpCode(), $methods));
+        } finally {
+            $response = $client->destroyRecurringCharge();
+            $this->assertTrue(in_array($response->getHttpCode(), $methods));
+        }
     }
 }
