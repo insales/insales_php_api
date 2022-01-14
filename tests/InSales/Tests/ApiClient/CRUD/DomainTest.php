@@ -14,7 +14,7 @@ class DomainTest extends TestCase
         $response = $client->createDomain(
             [
                 'domain' => [
-                    'domain' => 'test.te',
+                    'domain' => uniqid() . '.te',
                 ]
             ]
         );
