@@ -40,6 +40,7 @@ use InSales\API\Traits\{Account,
     StockCurrency,
     Supplementary,
     Testing,
+    Themes,
     Variant,
     VariantField,
     VariantFieldValue,
@@ -67,13 +68,14 @@ class ApiClient
         Similar, StockCurrency, Supplementary,
         Variant, VariantField, VariantFieldValue,
         WebHook,
-        Testing,
+        Testing, Themes,
         PaymentNotify;
 
     const API_URL_ACCOUNT = '/admin/account';
     const API_URL_APPLICATION_ACTION = '/admin/application_actions';
     const API_URL_APPLICATION_CHARGES = '/admin/application_charges';
     const API_URL_APPLICATION_WIDGET = '/admin/application_widgets';
+    const API_URL_ASSETS = '/admin/themes/{slug}/assets';
     const API_URL_ARTICLE = '/admin/blogs/{slug}/articles';
     const API_URL_BLOGS = '/admin/blogs';
     const API_URL_CATEGORY = '/admin/categories';
@@ -104,11 +106,11 @@ class ApiClient
     const API_URL_PRODUCT_FIELD = '/admin/product_fields';
     const API_URL_PRODUCT_FIELD_VALUE = '/admin/products/{slug}/product_field_values';
     const API_URL_RECURRING_APPLICATION_CHARGE = '/admin/recurring_application_charge';
-    const API_URL_RECURRING_APPLICATION_CHARGE_ADD_FREE_DAYS = '/admin/recurring_application_charge/add_free_days';
     const API_URL_REVIEW = '/admin/reviews';
     const API_URL_SIMILAR = '/admin/products/{slug}/similars';
     const API_URL_STOCK_CURRENCY = '/admin/stock_currencies';
     const API_URL_STOCK_SUPLEMENTARY = '/admin/products/{slug}/supplementaries';
+    const API_URL_THEMES = '/admin/themes';
     const API_URL_VARIANT = '/admin/products/{slug}/variants';
     const API_URL_VARIANT_FIELD = '/admin/variant_fields';
     const API_URL_VARIANT_FIELD_VALUE = '/admin/products/{slug}/variant_field_values';
