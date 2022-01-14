@@ -23,7 +23,12 @@ class CollectionTest extends TestCase
         $methods = [200, 201];
         $this->assertTrue(in_array($response->getHttpCode(), $methods));
         $id = $response->getData()['id'];
-        $response = $client->updateCollection($id, []);
+        $response = $client->updateCollection($id, [
+            'collection' => [
+                'title' => uniqid(),
+                'parent_id' => $parentId,
+            ]
+        ]);
         $this->assertTrue(in_array($response->getHttpCode(), $methods));
         $response = $client->removeCollection($id);
         $this->assertTrue(in_array($response->getHttpCode(), $methods));
