@@ -21,7 +21,11 @@ class CategoryTest extends TestCase
         $methods = [200, 201];
         $this->assertTrue(in_array($response->getHttpCode(), $methods));
         $id = $response->getData()['id'];
-        $response = $client->updateCategory($id, []);
+        $response = $client->updateCategory($id, [
+            'category' => [
+                'title' => uniqid(),
+            ]
+        ]);
         $this->assertTrue(in_array($response->getHttpCode(), $methods));
         $response = $client->removeCategory($id);
         $this->assertTrue(in_array($response->getHttpCode(), $methods));
