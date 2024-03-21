@@ -79,4 +79,17 @@ trait Variant
             $data
         );
     }
+
+    /**
+     * Массовое обновление вариантов товаров
+     * @param array $data
+     * @return ApiResponse
+     */
+    public function updateGroupVariants(array $data) : ApiResponse
+    {
+        return $this->client->executeUpdateRequest(
+            $this->generateUrl(self::API_URL_VARIANTS_GROUP_UPDATE),
+            $data
+        );
+    }
 }

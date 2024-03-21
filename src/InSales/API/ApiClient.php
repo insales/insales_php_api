@@ -109,6 +109,7 @@ class ApiClient
     const API_URL_VARIANT_FIELD_VALUE = '/admin/products/{slug}/variant_field_values';
     const API_URL_WEBHOOK = '/admin/webhooks';
     const PAYMENT_URL_NOTIFY = '/payments/external/server';
+    const API_URL_VARIANTS_GROUP_UPDATE = '/admin/products/variants_group_update';
 
     /** @var HttpClient */
     private $client;
